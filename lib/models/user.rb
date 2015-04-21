@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
   end
 
   def send_sms message 
-    Aliyun::Mqs::Queue[ENV['SmsQueue']].send_message(message)
+    Aliyun::Mqs::Queue[ENV['SMS_QUEUE']].send_message(message)
   end
     
   class << self
@@ -102,7 +102,7 @@ class User < ActiveRecord::Base
     end
 
     def send_sms message
-      Aliyun::Mqs::Queue[ENV['SmsQueue']].send_message(message)
+      Aliyun::Mqs::Queue[ENV['SMS_QUEUE']].send_message(message)
     end
   end
 end
