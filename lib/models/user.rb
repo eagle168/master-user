@@ -82,8 +82,9 @@ class User < ActiveRecord::Base
     message = { to: :user, cid: self.cid }.merge!(options)
     Aliyun::Mqs::Queue[ENV['PushQueue']].send_message(message.to_json)
   end
+
   def send_sms message 
-    Aliyun::Mqs::Queue["golf-sms"].send_message(message)
+    Aliyun::Mqs::Queue[ENV['SmsQueue']].send_message(message)
   end
     
   class << self
@@ -98,6 +99,10 @@ class User < ActiveRecord::Base
     def send_push options = {}
       message = { to: :all, cid: nil }.merge!(options)
       Aliyun::Mqs::Queue[ENV['PushQueue']].send_message(message.to_json)
+    end
+
+    def send_sms message
+      Aliyun::Mqs::Queue[ENV['SmsQueue']].send_message(message)
     end
   end
 end
