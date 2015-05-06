@@ -83,8 +83,9 @@ class User < ActiveRecord::Base
     Aliyun::Mqs::Queue[ENV['PUSH_QUEUE']].send_message(message.to_json)
   end
 
-  def send_sms message 
-    Aliyun::Mqs::Queue[ENV['SMS_QUEUE']].send_message(message)
+  def send_sms message
+    message_hash = { phone: self.phone, content: message}
+    Aliyun::Mqs::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json)
   end
     
   class << self
@@ -101,8 +102,9 @@ class User < ActiveRecord::Base
       Aliyun::Mqs::Queue[ENV['PUSH_QUEUE']].send_message(message.to_json)
     end
 
-    def send_sms message
-      Aliyun::Mqs::Queue[ENV['SMS_QUEUE']].send_message(message)
+    def send_sms phone, message
+      message_hash = { phone: phone, content: message}
+      Aliyun::Mqs::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json)
     end
   end
 end

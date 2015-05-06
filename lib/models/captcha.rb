@@ -24,6 +24,6 @@ class Captcha < ActiveRecord::Base
   end
 
   def send_sms
-    open("http://121.199.16.178/webservice/sms.php?method=Submit&account=cf_twyd&password=teewell-2014&mobile=#{self.user.phone}&content=#{self.content}%EF%BC%8CMaster%E9%AB%98%E5%B0%94%E5%A4%ABApp%E6%89%8B%E6%9C%BA%E9%AA%8C%E8%AF%81%E7%A0%81%EF%BC%8C%E8%AF%B7%E5%8B%BF%E6%B3%84%E9%9C%B2%E7%BB%99%E5%85%B6%E4%BB%96%E4%BA%BA%E3%80%82")
+    self.user.send_sms("验证码：#{self.content}，请勿将此验证码泄露给他人。")
   end
 end
