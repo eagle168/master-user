@@ -73,19 +73,16 @@ class User < ActiveRecord::Base
     raise InexistentFollowship unless self.api_followings.where({ competitor: competitor }).first.try(&:destroy)
   end
 
-  # def send_sms options = {}
-  #   message = { phone_number: self.phone, content: options[:content] }
-  #   Aliyun::Mqs::Queue["golf-sms"].send_message(message.to_json)
-  # end
-
-  def send_push options = {}
+  def send_push options = {}, priority = 8
+    raise ArgumentError, "Invalid arguments：priority value in (1..16), default value is 8." unless (1..16) === priority
     message = { to: :user, cid: self.cid }.merge!(options)
-    Aliyun::Mqs::Queue[ENV['PUSH_QUEUE']].send_message(message.to_json)
+    Aliyun::Mqs::Queue[ENV['PUSH_QUEUE']].send_message(message.to_json, :Priority=>priority)
   end
 
-  def send_sms message
+  def send_sms message, priority = 8
+    raise ArgumentError, "Invalid arguments：priority value in (1..16), default value is 8." unless (1..16) === priority
     message_hash = { phone: self.phone, content: message}
-    Aliyun::Mqs::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json)
+    Aliyun::Mqs::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json, :Priority=>priority)
   end
     
   class << self
@@ -97,14 +94,25 @@ class User < ActiveRecord::Base
       uuids.split(",").map{|uuid| User.where(uuid: uuid).first}.compact
     end
 
-    def send_push options = {}
+    def send_push options = {}, priority = 8, delay_seconds = 0
+      raise ArgumentError, "Invalid arguments：priority value in (1..16), default value is 8." unless (1..16) === priority
+      raise ArgumentError, "Invalid arguments：delay_seconds value in (0..604800), default value is 0." unless (0..604800) === delay_seconds
       message = { to: :all, cid: nil }.merge!(options)
-      Aliyun::Mqs::Queue[ENV['PUSH_QUEUE']].send_message(message.to_json)
+      Aliyun::Mqs::Queue[ENV['PUSH_QUEUE']].send_message(message.to_json, :Priority=>priority, :DelaySeconds=>delay_seconds)
     end
 
-    def send_sms phone, message
+    def send_push province, city, options = {}, priority = 8, delay_seconds = 0
+      raise ArgumentError, "Invalid arguments：priority value in (1..16), default value is 8." unless (1..16) === priority
+      raise ArgumentError, "Invalid arguments：delay_seconds value in (0..604800), default value is 0." unless (0..604800) === delay_seconds
+      message = { to: :area, province:province, city:city }.merge!(options)
+      Aliyun::Mqs::Queue[ENV['PUSH_QUEUE']].send_message(message.to_json, :Priority=>priority, :DelaySeconds=>delay_seconds)
+    end
+
+    def send_sms phone, message, priority = 8, delay_seconds = 0
+      raise ArgumentError, "Invalid arguments：priority value in (1..16), default value is 8." unless (1..16) === priority
+      raise ArgumentError, "Invalid arguments：delay_seconds value in (0..604800), default value is 0." unless (0..604800) === delay_seconds
       message_hash = { phone: phone, content: message}
-      Aliyun::Mqs::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json)
+      Aliyun::Mqs::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json, :Priority=>priority, :DelaySeconds=>delay_seconds)
     end
   end
 end
