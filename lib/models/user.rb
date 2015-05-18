@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   # searchable do
   #   text :uuid, :phone, :email, :nickname, :description
   # end
-  before_create :hash_password_and_set_token
+  #before_create :hash_password_and_set_token
 
   validates :phone, uniqueness: true
   validates :nickname, presence: true, length: { maximum: 36 }
