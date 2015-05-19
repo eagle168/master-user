@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    master-user (0.2.2)
+    master-user (0.2.3)
       aasm
       activemodel (>= 4.0.0)
       activerecord (>= 4.0.0)

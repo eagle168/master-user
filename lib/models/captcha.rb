@@ -24,6 +24,6 @@ class Captcha < ActiveRecord::Base
   end
 
   def send_sms
-    self.user.send_sms("验证码：#{self.content}，请勿将此验证码泄露给他人。")
+    self.user.send_sms("校验码：#{self.content}，请勿将此校验码泄露给他人。")
   end
 end
