@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   has_many :captchas
   has_many :tokens
+  has_many :trade_records
   has_many :followings, class_name: 'Followship'
   has_many :messages
   has_many :api_followings, class_name: 'Match::Followship'
@@ -39,11 +40,20 @@ class User < ActiveRecord::Base
   # searchable do
   #   text :uuid, :phone, :email, :nickname, :description
   # end
+  #before_create :hash_password_and_set_token
 
   validates :phone, uniqueness: true
   validates :nickname, presence: true, length: { maximum: 36 }
   validates :email, length: { in: 6..100 }, unless: "email.blank?"
   validates :handicap, length: { in: 1..3 }, unless: "handicap.blank?"
+
+  def authenticate password
+    self.hashed_password == Digest::MD5.hexdigest(password) ? self : nil
+  end
+
+  def update_password password
+    self.update(hashed_password: Digest::MD5.hexdigest(password))
+  end
 
   def set_signuped_at!
     self.update({ signuped_at: Time.now })
