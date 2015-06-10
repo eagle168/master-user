@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   has_many :api_collects, class_name: 'News::Collect'
   has_many :orders
   has_many :api_orders, class_name: 'Booking::Order'
+  has_many :coupons
 
   aasm column: 'state' do
     state :validating, :initial => true
