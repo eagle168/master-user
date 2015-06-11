@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :api_orders, class_name: 'Booking::Order'
   has_many :coupons
+  belongs_to :phone_area
 
   aasm column: 'state' do
     state :validating, :initial => true
@@ -124,6 +125,10 @@ class User < ActiveRecord::Base
       raise ArgumentError, "Invalid arguments：delay_seconds value in (0..604800), default value is 0." unless (0..604800) === delay_seconds
       message_hash = { phone: phone, content: message}
       Aliyun::Mqs::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json, :Priority=>priority, :DelaySeconds=>delay_seconds)
+    end
+
+    def find_not_phone_area
+      # User.includes(:phone_area).where("")
     end
   end
 end
