@@ -106,14 +106,14 @@ class User < ActiveRecord::Base
       uuids.split(",").map{|uuid| User.where(uuid: uuid).first}.compact
     end
 
-    def send_push options = {}, priority = 8, delay_seconds = 0
+    def send_push_to_all options = {}, priority = 8, delay_seconds = 0
       raise ArgumentError, "Invalid arguments：priority value in (1..16), default value is 8." unless (1..16) === priority
       raise ArgumentError, "Invalid arguments：delay_seconds value in (0..604800), default value is 0." unless (0..604800) === delay_seconds
       message = { to: :all, cid: nil }.merge!(options)
       Aliyun::Mqs::Queue[ENV['PUSH_QUEUE']].send_message(message.to_json, :Priority=>priority, :DelaySeconds=>delay_seconds)
     end
 
-    def send_push province, city, options = {}, priority = 8, delay_seconds = 0
+    def send_push_to_area province, city, options = {}, priority = 8, delay_seconds = 0
       raise ArgumentError, "Invalid arguments：priority value in (1..16), default value is 8." unless (1..16) === priority
       raise ArgumentError, "Invalid arguments：delay_seconds value in (0..604800), default value is 0." unless (0..604800) === delay_seconds
       message = { to: :area, province:province, city:city }.merge!(options)
