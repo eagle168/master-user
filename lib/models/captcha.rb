@@ -19,7 +19,12 @@ class Captcha < ActiveRecord::Base
 
   protected
   def set_content_and_expired_at
-    self.content = rand(1234..9876)
+    last_captcha = self.user.captchas.order(created_at: :desc).first
+    if last_captcha.available and Time.now.utc<last_captcha.expired_at
+          self.content = last_captcha.content
+    else
+          self.content = rand(1234..9876)
+    end
     self.expired_at = Time.now + 30.minutes
   end
 
