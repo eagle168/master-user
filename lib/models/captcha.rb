@@ -20,7 +20,7 @@ class Captcha < ActiveRecord::Base
   protected
   def set_content_and_expired_at
     last_captcha = self.user.captchas.order(created_at: :desc).first
-    if last_captcha.present? and last_captcha.available and Time.now.utc<last_captcha.expired_at
+    if last_captcha.present? and last_captcha.available==1 and Time.now.utc<last_captcha.expired_at
           self.content = last_captcha.content
     else
           self.content = rand(1234..9876)
