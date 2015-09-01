@@ -126,9 +126,5 @@ class User < ActiveRecord::Base
       message_hash = { phone: phone, content: message}
       Aliyun::Mqs::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json, :Priority=>priority, :DelaySeconds=>delay_seconds)
     end
-
-    def find_not_phone_area
-      # User.includes(:phone_area).where("")
-    end
   end
 end
