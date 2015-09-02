@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
 
   mount_uploader :image, UserUploader
 
+  def nick
+    self.nickname
+  end
+
   has_many :captchas
   has_many :tokens
   has_many :trade_records
