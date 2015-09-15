@@ -52,8 +52,8 @@ module PushMessageHelper
                base_options "shop_products_by_brand", nil, page_title, uuid, nil, title, message
         end
         #商城首页
-        def self.notify_shop_index_options uuid, title, message
-               base_options "shop_index", nil, nil, uuid, nil, title, message
+        def self.notify_shop_index_options title, message
+               base_options "shop_index", nil, nil, nil, nil, title, message
         end
 
   	private
