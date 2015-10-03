@@ -22,7 +22,7 @@ class Token < ActiveRecord::Base
 
   def first_create_send_coupon
         if self.user.tokens.count==1
-              coupon_class = CouponClass.where("name = '注册后系统送券'").where("beginning_on <= ? ", Date.current.strftime("%Y-%m-%d").where("end_on >= ?", Date.current.strftime("%Y-%m-%d") ).first
+              coupon_class = CouponClass.where("name = '注册后系统送券'").where("beginning_on <= ? ", Date.current.strftime("%Y-%m-%d")).where("end_on >= ?", Date.current.strftime("%Y-%m-%d") ).first
               if coupon_class.present?
                       date = (Date.current + coupon_class.days.days).to_date if Date.current >= coupon_class.beginning_on
                       CouponItem.create({user_id: user.id, coupon_class_id: coupon_class.id,
