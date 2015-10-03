@@ -5,7 +5,7 @@ class Token < ActiveRecord::Base
   belongs_to :user
 
   before_create :set_content_and_expired_at
-  after_crate :first_create_send_coupon
+  after_create :first_create_send_coupon
 
   scope :generate, -> { self.create }
   scope :available, -> { where(available: true).where('expired_at >= ?', Time.now).order(created_at: :desc).limit(1).first }
