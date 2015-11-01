@@ -30,7 +30,7 @@ class Token < ActiveRecord::Base
                        # 如果该用户可以推送，则推送信息（有 cid 信息）
                       self.user.send_push(PushMessageHelper::notify_shop_coupons_options("账户信息提示", "您收到一张佰佳商城优惠券。")) if self.user.cid.present?
               end
-              coupon_class_names = ['100golf_20151111_20', '100golf_20151111_50', '100golf_20151111_100']
+              coupon_class_names = ['壹佰满299送20元', '壹佰满499送50元', '壹佰满990送100元']
               send_count = 0
               coupon_class_names.each do | name |
                       coupon_class = CouponClass.where("name = ?", name).where("end_on >= ?", Date.current.strftime("%Y-%m-%d") ).first
