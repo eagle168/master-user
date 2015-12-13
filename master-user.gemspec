@@ -1,28 +1,55 @@
-$:.push File.expand_path("../lib", __FILE__)
+# -*- encoding: utf-8 -*-
+# stub: master-user 0.2.24 ruby lib
 
-# Maintain your gem's version:
-require "master-user/version"
-
-# Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "master-user"
-  s.version     = MasterUser::VERSION
-  s.authors     = ["master"]
-  s.email       = ["info@themastergolf.com"]
-  s.homepage    = "http://www.mastergolf.cn"
-  s.summary     = "Master User Center"
+  s.name = "master-user"
+  s.version = "0.2.25"
+
+  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
+  s.require_paths = ["lib"]
+  s.authors = ["master"]
+  s.date = "2015-12-13"
   s.description = ""
-  s.license     = "MIT"
+  s.email = ["info@themastergolf.com"]
+  s.files = ["MIT-LICENSE", "README.rdoc", "Rakefile", "lib/generators", "lib/generators/user", "lib/generators/user/templates", "lib/generators/user/templates/change_user.rb", "lib/generators/user/user_generator.rb", "lib/helpers", "lib/helpers/push_message_helper.rb", "lib/master-user", "lib/master-user.rb", "lib/master-user/version.rb", "lib/models", "lib/models/captcha.rb", "lib/models/complaint.rb", "lib/models/coupon.rb", "lib/models/coupon_class.rb", "lib/models/coupon_item.rb", "lib/models/message.rb", "lib/models/message_param.rb", "lib/models/phone_area.rb", "lib/models/token.rb", "lib/models/trade_record.rb", "lib/models/user.rb", "lib/uploaders", "lib/uploaders/base_uploader.rb", "lib/uploaders/user_uploader.rb", "lib/utilities", "lib/utilities/uuid.rb"]
+  s.homepage = "http://www.mastergolf.cn"
+  s.licenses = ["MIT"]
+  s.rubygems_version = "2.4.5"
+  s.summary = "Master User Center"
 
-  s.files = Dir["{lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
+  if s.respond_to? :specification_version then
+    s.specification_version = 4
 
-  s.add_dependency "activerecord", ">= 4.0.0"
-  s.add_dependency "activesupport", ">= 4.0.0"
-  s.add_dependency "activemodel", ">= 4.0.0"
-  s.add_dependency "carrierwave"
-  s.add_dependency "carrierwave-imageoptimizer"
-  s.add_dependency "rmagick"
-  s.add_dependency "aasm"
-  s.add_dependency "sunspot_rails"
-  s.add_dependency "aliyun-mqs"
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<activerecord>, [">= 4.0.0"])
+      s.add_runtime_dependency(%q<activesupport>, [">= 4.0.0"])
+      s.add_runtime_dependency(%q<activemodel>, [">= 4.0.0"])
+      s.add_runtime_dependency(%q<carrierwave>, [">= 0"])
+      s.add_runtime_dependency(%q<carrierwave-imageoptimizer>, [">= 0"])
+      s.add_runtime_dependency(%q<rmagick>, [">= 0"])
+      s.add_runtime_dependency(%q<aasm>, [">= 0"])
+      s.add_runtime_dependency(%q<sunspot_rails>, [">= 0"])
+      s.add_runtime_dependency(%q<aliyun-mqs>, [">= 0"])
+    else
+      s.add_dependency(%q<activerecord>, [">= 4.0.0"])
+      s.add_dependency(%q<activesupport>, [">= 4.0.0"])
+      s.add_dependency(%q<activemodel>, [">= 4.0.0"])
+      s.add_dependency(%q<carrierwave>, [">= 0"])
+      s.add_dependency(%q<carrierwave-imageoptimizer>, [">= 0"])
+      s.add_dependency(%q<rmagick>, [">= 0"])
+      s.add_dependency(%q<aasm>, [">= 0"])
+      s.add_dependency(%q<sunspot_rails>, [">= 0"])
+      s.add_dependency(%q<aliyun-mqs>, [">= 0"])
+    end
+  else
+    s.add_dependency(%q<activerecord>, [">= 4.0.0"])
+    s.add_dependency(%q<activesupport>, [">= 4.0.0"])
+    s.add_dependency(%q<activemodel>, [">= 4.0.0"])
+    s.add_dependency(%q<carrierwave>, [">= 0"])
+    s.add_dependency(%q<carrierwave-imageoptimizer>, [">= 0"])
+    s.add_dependency(%q<rmagick>, [">= 0"])
+    s.add_dependency(%q<aasm>, [">= 0"])
+    s.add_dependency(%q<sunspot_rails>, [">= 0"])
+    s.add_dependency(%q<aliyun-mqs>, [">= 0"])
+  end
 end
