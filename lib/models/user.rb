@@ -117,6 +117,19 @@ class User < ActiveRecord::Base
       Aliyun::Mqs::Queue[ENV['PUSH_QUEUE']].send_message(message.to_json, :Priority=>priority, :DelaySeconds=>delay_seconds)
     end
 
+    def cancel_push message_id
+      messages = Aliyun::Mns::Queue[ENV['PUSH_QUEUE']].batch_peek_message(16)
+      false if messages.nil?
+      messages.each{|message|
+        if message.id == message_id
+          message.delete
+          return true
+        end
+      }
+      return false
+    end
+
+
     def send_push_to_area province, city, options = {}, priority = 8, delay_seconds = 0
       raise ArgumentError, "Invalid arguments：priority value in (1..16), default value is 8." unless (1..16) === priority
       raise ArgumentError, "Invalid arguments：delay_seconds value in (0..604800), default value is 0." unless (0..604800) === delay_seconds
