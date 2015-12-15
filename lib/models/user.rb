@@ -100,6 +100,19 @@ class User < ActiveRecord::Base
     message_hash = { phone: self.phone, content: message}
     Aliyun::Mqs::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json, :Priority=>priority)
   end
+
+  def send_captcha_sms captcha
+    message_hash = { function: "cpc_sms", to: self.phone, data:[captcha]}
+    Aliyun::Mqs::Queue[ENV['CPC_QUEUE']].send_message(message_hash.to_json)
+  end
+
+  def send_captcha_voice captcha
+    message_hash = { function: "cpc_voice", to: self.phone, data:[captcha]}
+    Aliyun::Mqs::Queue[ENV['CPC_QUEUE']].send_message(message_hash.to_json)
+  end
+
+
+
     
   class << self
     def find_or_create phone
@@ -143,5 +156,16 @@ class User < ActiveRecord::Base
       message_hash = { phone: phone, content: message}
       Aliyun::Mqs::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json, :Priority=>priority, :DelaySeconds=>delay_seconds)
     end
+
+    def send_captcha_sms to, captcha
+      message_hash = { function: "cpc_sms", to: phone, data:[captcha]}
+      Aliyun::Mqs::Queue[ENV['CPC_QUEUE']].send_message(message_hash.to_json)
+    end
+
+    def send_captcha_voice to, captcha
+      message_hash = { function: "cpc_voice", to: phone, data:[captcha]}
+      Aliyun::Mqs::Queue[ENV['CPC_QUEUE']].send_message(message_hash.to_json)
+    end
+
   end
 end
