@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-# stub: master-user 0.2.25 ruby lib
+# stub: master-user 0.2.26 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "master-user"
