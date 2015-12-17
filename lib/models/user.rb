@@ -1,4 +1,6 @@
 # -*- encoding : utf-8 -*-
+require 'aliyun/mns'
+
 class User < ActiveRecord::Base
   include UUID
   include AASM

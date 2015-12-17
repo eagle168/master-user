@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-# stub: master-user 0.2.26 ruby lib
+# stub: master-user 0.2.27 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "master-user"
@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rmagick>, [">= 0"])
       s.add_dependency(%q<aasm>, [">= 0"])
       s.add_dependency(%q<sunspot_rails>, [">= 0"])
-      s.add_runtime_dependency(%q<aliyun-mns>, [">= 0.1.2"])
+      s.add_dependency(%q<aliyun-mns>, [">= 0.1.2"])
     end
   else
     s.add_dependency(%q<activerecord>, [">= 4.0.0"])
@@ -50,6 +50,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rmagick>, [">= 0"])
     s.add_dependency(%q<aasm>, [">= 0"])
     s.add_dependency(%q<sunspot_rails>, [">= 0"])
-    s.add_runtime_dependency(%q<aliyun-mns>, [">= 0.1.2"])
+    s.add_dependency(%q<aliyun-mns>, [">= 0.1.2"])
   end
 end
