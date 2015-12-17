@@ -131,14 +131,18 @@ class User < ActiveRecord::Base
     end
 
     def cancel_push message_id
-      messages = Aliyun::Mns::Queue[ENV['PUSH_QUEUE']].batch_peek_message(16)
-      false if messages.nil?
-      messages.each{|message|
-        if message.id == message_id
-          message.delete
-          return true
-        end
-      }
+      while true
+        messages = Aliyun::Mns::Queue[ENV['PUSH_QUEUE']].batch_receive_message(16)
+        binding.pry
+        break if messages.nil?
+        messages.each{|message|
+          if message.id == message_id
+            message.delete
+            return true
+          end
+        }
+        break if messages.length < 16
+      end
       return false
     end
 
