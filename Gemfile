@@ -9,6 +9,7 @@ gemspec
 # your gemspec. These might include edge Rails or gems from your path or
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
+gem 'aliyun-mns', '~> 0.1.2', github: 'golfMaster/aliyun-mns'
 
 # To use debugger
 # gem 'debugger'

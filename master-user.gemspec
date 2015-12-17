@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<rmagick>, [">= 0"])
       s.add_runtime_dependency(%q<aasm>, [">= 0"])
       s.add_runtime_dependency(%q<sunspot_rails>, [">= 0"])
-      s.add_runtime_dependency(%q<aliyun-mns>, [">= 0"])
+      s.add_runtime_dependency(%q<aliyun-mns>, [">= 0.1.2"])
     else
       s.add_dependency(%q<activerecord>, [">= 4.0.0"])
       s.add_dependency(%q<activesupport>, [">= 4.0.0"])
@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rmagick>, [">= 0"])
       s.add_dependency(%q<aasm>, [">= 0"])
       s.add_dependency(%q<sunspot_rails>, [">= 0"])
-      s.add_dependency(%q<aliyun-mns>, [">= 0"])
+      s.add_runtime_dependency(%q<aliyun-mns>, [">= 0.1.2"])
     end
   else
     s.add_dependency(%q<activerecord>, [">= 4.0.0"])
@@ -50,6 +50,6 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rmagick>, [">= 0"])
     s.add_dependency(%q<aasm>, [">= 0"])
     s.add_dependency(%q<sunspot_rails>, [">= 0"])
-    s.add_dependency(%q<aliyun-mns>, [">= 0"])
+    s.add_runtime_dependency(%q<aliyun-mns>, [">= 0.1.2"])
   end
 end
