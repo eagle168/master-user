@@ -99,23 +99,20 @@ class User < ActiveRecord::Base
 
   def send_sms message, priority = 8
     raise ArgumentError, "Invalid arguments：priority value in (1..16), default value is 8." unless (1..16) === priority
-    message_hash = { phone: self.phone, content: message}
+    message_hash = { function: "sms", to: phone, data: message}
     Aliyun::Mns::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json, :Priority=>priority)
   end
 
   def send_captcha_sms captcha
     message_hash = { function: "cpc_sms", to: self.phone, data:[captcha]}
-    Aliyun::Mns::Queue[ENV['CPC_QUEUE']].send_message(message_hash.to_json)
+    Aliyun::Mns::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json)
   end
 
   def send_captcha_voice captcha
     message_hash = { function: "cpc_voice", to: self.phone, data:[captcha]}
-    Aliyun::Mns::Queue[ENV['CPC_QUEUE']].send_message(message_hash.to_json)
+    Aliyun::Mns::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json)
   end
 
-
-
-    
   class << self
     def find_or_create phone
       self.where(phone: phone).first || self.create({ phone: phone, nickname: "用户****#{phone[-4..-1]}" })
@@ -159,18 +156,18 @@ class User < ActiveRecord::Base
     def send_sms phone, message, priority = 8, delay_seconds = 0
       raise ArgumentError, "Invalid arguments：priority value in (1..16), default value is 8." unless (1..16) === priority
       raise ArgumentError, "Invalid arguments：delay_seconds value in (0..604800), default value is 0." unless (0..604800) === delay_seconds
-      message_hash = { phone: phone, content: message}
+      message_hash = { function: "sms", to: phone, data: message}
       Aliyun::Mns::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json, :Priority=>priority, :DelaySeconds=>delay_seconds)
     end
 
     def send_captcha_sms to, captcha
       message_hash = { function: "cpc_sms", to: phone, data:[captcha]}
-      Aliyun::Mns::Queue[ENV['CPC_QUEUE']].send_message(message_hash.to_json)
+      Aliyun::Mns::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json)
     end
 
     def send_captcha_voice to, captcha
       message_hash = { function: "cpc_voice", to: phone, data:[captcha]}
-      Aliyun::Mns::Queue[ENV['CPC_QUEUE']].send_message(message_hash.to_json)
+      Aliyun::Mns::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json)
     end
 
   end
