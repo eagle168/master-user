@@ -69,7 +69,7 @@ module PushMessageHelper
         # url
         # title  提示框的标题
         # message  提示框的描述信息
-	def self.base_options action_name, type, page_title, uuid, url, title, message
+      def self.base_options action_name, type, page_title, uuid, url, title, message
     		{
       		action: action_name,
         		params: {
