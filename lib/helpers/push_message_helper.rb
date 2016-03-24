@@ -56,6 +56,11 @@ module PushMessageHelper
                base_options "shop_index", nil, nil, nil, nil, title, message
         end
 
+        #app_inner_url跳转
+        def self.notify_app_inner_url_options url, title, message
+               base_options "app_inner_url", nil, nil, nil, url, title, message
+        end
+
   	private
         # action_name 动作名
         # type  类型名
@@ -71,7 +76,7 @@ module PushMessageHelper
         			type: type,
         			uuid: uuid,
         			url: url,
-                                page_title: page_title
+              page_title: page_title
         		},
         		content: {
           			title: title,
