@@ -131,7 +131,6 @@ class User < ActiveRecord::Base
     def cancel_push message_id
       while true
         messages = Aliyun::Mns::Queue[ENV['PUSH_QUEUE']].batch_receive_message(16)
-        binding.pry
         break if messages.nil?
         messages.each{|message|
           if message.id == message_id
