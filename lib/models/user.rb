@@ -158,12 +158,12 @@ class User < ActiveRecord::Base
       Aliyun::Mns::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json, :Priority=>priority, :DelaySeconds=>delay_seconds)
     end
 
-    def send_captcha_sms to, captcha
+    def send_captcha_sms phone, captcha
       message_hash = { function: "cpc_sms", to: phone, data:[captcha]}
       Aliyun::Mns::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json)
     end
 
-    def send_captcha_voice to, captcha
+    def send_captcha_voice phone, captcha
       message_hash = { function: "cpc_voice", to: phone, data:[captcha]}
       Aliyun::Mns::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json)
     end
