@@ -168,5 +168,14 @@ class User < ActiveRecord::Base
       Aliyun::Mns::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json)
     end
 
+    def send_template_sms to, template_code, params={}
+      params['template_code'] = template_code
+      message_hash = { function: "template_sms", to: to, data: params}
+      Aliyun::Mns::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json)
+    end
+
+
+
+
   end
 end
