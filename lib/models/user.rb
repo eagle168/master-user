@@ -174,7 +174,11 @@ class User < ActiveRecord::Base
       Aliyun::Mns::Queue[ENV['SMS_QUEUE']].send_message(message_hash.to_json)
     end
 
-
+    def send_push cid, params = {}, priority = 8, delay_seconds = 0
+      raise ArgumentError, "Invalid arguments：priority value in (1..16), default value is 8." unless (1..16) === priority
+      message = { to: :user, cid: cid }.merge!(params)
+      Aliyun::Mns::Queue[ENV['PUSH_QUEUE']].send_message(message.to_json, :Priority=>priority, :DelaySeconds=>delay_seconds)
+    end
 
 
   end
